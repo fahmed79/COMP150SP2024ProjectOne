@@ -309,7 +309,7 @@ def start_game():
 
 if __name__ == '__main__':
     start_game()
-
+#-------------------------------
 # 3/22/2024 - Faizan Ahmed
 
 import random
@@ -356,3 +356,67 @@ class Thor(Character):
     def __init__(self):
         super().__init__("Thor")
         self.spirit = float('inf')  # Thor has unlimited power
+        
+# Faizan Ahmed - 11:47am - 2/23/24 
+
+class Party:
+    def __int__(self)
+        self.member = []
+    def add_member(self, character):
+        """Adding a character to the part. """
+        self.member.append(character)
+    def remove_member(self, character)
+        """Remove a character from the party."""
+        if character in self.members:
+            self.members.remove(character)
+        else:
+            print(f"{character.name} is not a member of the party.")
+
+    def list_members(self)
+        """List all members of the party."""
+        print("party Members:)
+        for member in self.members:
+            print(member)
+
+#game.py
+
+from party import Party
+from characters import Kratos, Loki, Odin, Thor
+
+class Game:
+    def __init__(self):
+        self.party = Party()
+
+    def add_starting_characters(self):
+        """Add starting chracters to the party."""
+        kratos = Kratos()
+        loki = Loki()
+        odin = Odin()
+        thor = Thor()
+
+        self.party.add_member(kratos)
+        self.party.add_member(loki)
+        self.party.add_member(odin)
+        self.party.add_member(thor)
+
+    def start_game(self):
+        """Start the game loop."
+        self.add_starting_characters()
+        print("Welcome to the game !")
+        self.party.list_members()
+
+        while True:
+            pass
+
+if __name__ == "__main__":
+    game = Game()
+    game.start_game()
+
+# in this game class above, we import the 'Party class' and the character classes (kratos, loki, odin, and thor)
+# Movng on in Game class, we initialize a 'Party' instance to manage the player's party
+# Also we made 'add_starting_characters' method that adds the starting characters to the party.
+# the 'start_game' method starts the game loop and  right now displaying welcome message
+# lastly, at the bottom we deamand to start the game by calling the 'start_game' method.
+--------
+
+
