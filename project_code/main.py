@@ -23,9 +23,6 @@ class Location:
 
 
 
-
-
-
 from enum import Enum
 
 
@@ -312,3 +309,50 @@ def start_game():
 
 if __name__ == '__main__':
     start_game()
+
+# 3/22/2024 - Faizan Ahmed
+
+import random
+
+class Character:
+    def __int__(self, name):
+        self.name = name
+        self strength = name
+        self.strength = random.randint(1,10)
+        self.dexterity = random.randint(1, 10)
+        self.constitution = random.randint(1, 10)
+        self.vitality = random.randint(1, 10)
+        self.endurance = random.randint(1, 10)
+        self.intelligence = random.randint(1, 10)
+        self.wisdom = random.randint(1, 10)
+        self.knowledge = random.randint(1, 10)
+        self.willpower = random.randint(1, 10)
+        self.spirit = random.randint(1, 10)
+
+def __str__(self):
+        return f"{self.name}: Str({self.strength}), Dex({self.dexterity}), Con({self.constitution}), Vit({self.vitality}), End({self.endurance}), Int({self.intelligence}), Wis({self.wisdom}), Know({self.knowledge}), Will({self.willpower}), Spir({self.spirit})"
+
+    def action(self):
+        # Placeholder for character action
+        print(f"{self.name} performs an action.")
+
+# Define character classes with special abilities
+class Kratos(Character):
+    def __init__(self):
+        super().__init__("Kratos")
+        self.strength += 5  # Kratos has great strength
+
+class Loki(Character):
+    def __init__(self):
+        super().__init__("Loki")
+        self.dexterity += 5  # Loki is a shape shifter
+
+class Odin(Character):
+    def __init__(self):
+        super().__init__("Odin")
+        self.willpower += 5  # Odin has psychological manipulation abilities
+
+class Thor(Character):
+    def __init__(self):
+        super().__init__("Thor")
+        self.spirit = float('inf')  # Thor has unlimited power
