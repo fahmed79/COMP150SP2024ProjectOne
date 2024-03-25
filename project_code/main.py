@@ -382,11 +382,13 @@ class Party:
 
 from party import Party
 from characters import Kratos, Loki, Odin, Thor
+from events import Event
 
 class Game:
     def __init__(self):
         self.party = Party()
-
+        self.events = []
+        
     def add_starting_characters(self):
         """Add starting chracters to the party."""
         kratos = Kratos()
@@ -399,15 +401,24 @@ class Game:
         self.party.add_member(odin)
         self.party.add_member(thor)
 
+    def generate_events(self):
+        """Generate random events."""
+        for _ in range(5): # 5 events
+            event = Event()
+            self.events.append(event)
+            
     def start_game(self):
-        """Start the game loop."
+        """Start the game loop."""
         self.add_starting_characters()
-        print("Welcome to the game !")
+        print("Welcome to the game!")
         self.party.list_members()
 
-        while True:
-            pass
-
+        # Game loop
+        for event in self.events:
+            print("\n--- New Event ---")
+            event.execute(self.party.members[0]) # For now, let's use the firsst party member
+            
+# Start the game
 if __name__ == "__main__":
     game = Game()
     game.start_game()
@@ -417,6 +428,23 @@ if __name__ == "__main__":
 # Also we made 'add_starting_characters' method that adds the starting characters to the party.
 # the 'start_game' method starts the game loop and  right now displaying welcome message
 # lastly, at the bottom we deamand to start the game by calling the 'start_game' method.
---------
+
+# March 25, 2024 - Faizan Ahmed
+
+    class Event:
+        def __int__(self):
+            self.description = "A random event occurs."
+            self.description_message = "You succeeded!"
+            self.failure_message = "You failed! "
+
+        def execute(self, character):
+            """Execute the event action for the given character."""
+            print(self.description)
+            # Placeholder: Implement event action based on character attributes
+            if random.random() < 0.5:
+                print(self.success_message)
+            else:
+                print(self.failure_message)
 
 
+            
