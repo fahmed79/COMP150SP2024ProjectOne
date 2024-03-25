@@ -329,7 +329,7 @@ class Character:
         self.willpower = random.randint(1, 10)
         self.spirit = random.randint(1, 10)
 
-def __str__(self):
+    def __str__(self):
         return f"{self.name}: Str({self.strength}), Dex({self.dexterity}), Con({self.constitution}), Vit({self.vitality}), End({self.endurance}), Int({self.intelligence}), Wis({self.wisdom}), Know({self.knowledge}), Will({self.willpower}), Spir({self.spirit})"
 
     def action(self):
@@ -360,21 +360,23 @@ class Thor(Character):
 # Faizan Ahmed - 11:47am - 2/23/24 
 
 class Party:
-    def __int__(self)
+    def __int__(self):
         self.member = []
+        
     def add_member(self, character):
         """Adding a character to the part. """
         self.member.append(character)
-    def remove_member(self, character)
+        
+    def remove_member(self, character):
         """Remove a character from the party."""
         if character in self.members:
             self.members.remove(character)
         else:
             print(f"{character.name} is not a member of the party.")
 
-    def list_members(self)
+    def list_members(self):
         """List all members of the party."""
-        print("party Members:)
+        print("party Members:")
         for member in self.members:
             print(member)
 
@@ -448,3 +450,4 @@ if __name__ == "__main__":
 
 
             
+    
