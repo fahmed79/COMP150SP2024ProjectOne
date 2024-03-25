@@ -65,20 +65,34 @@ class Event:
             self.secondary: Statistic = Dexterity()
 
         def execute(self, party):
-            chosed_one = self.parser.select_party_member(party)
-            chosen_skill = self.parser.select_skill(chosed_one)
+            chosen_one = self.parser.select_party_member(party)
+            chosen_skill = self.parser.select_skill(chosen_one)
 
-            self.set_status(EventStatus.PASS)
-            pass
+            self.resolve_choice(party, chosen_one, chosen_skill)
 
         def set_status(self, status: EventStatus = EventStatus.UNKNOWN):
             self.status = status
 
         def resolve_choice(self, party, character, chosen_skill):
-            # check if the skill attributes overlap with the event attributes
-            # if they don't overlap, the character fails
-            # if one overlap, the character partially passes
-            # if they do overlap, the character passes
+            # Get the primary and secondary attributes of the chosen skill
+            skill_primary = chosen_skill.primary_attribute
+            skill_secondary = chosen_skill.secondary_attribute
+            
+            # Check if the chosen skill's attributes overlap with the event's attributes
+            if skill_primary == self.primary or skill_secondary == self.primary:
+                # If the primary attribute of the chosen skill overlaps with the event's primary attribute
+                # or if the secondary attribute of the chosen skill overlaps with the event's primary attribute,
+                # the character passes
+                self.set_status(EventStatus.PASS)
+            elif skill_primary == self.secondary or skill_secondary == self.secondary:
+                # If the primary attribute of the chosen skill overlaps with the event's secondary attribute
+                # or if the secondary attribute of the chosen skill overlaps with the event's secondary attribute,
+                # the character partially passes
+                self.set_status(EventStatus.PARTIAL_PASS)
+            else:
+                # If there's no overlap between the chosen skill's attributes and the event's attributes,
+                # the character fails
+                self.set_status(EventStatus.FAIL)
 
 
 
@@ -317,7 +331,7 @@ import random
 class Character:
     def __int__(self, name):
         self.name = name
-        self strength = name
+        self.strength = name
         self.strength = random.randint(1,10)
         self.dexterity = random.randint(1, 10)
         self.constitution = random.randint(1, 10)
