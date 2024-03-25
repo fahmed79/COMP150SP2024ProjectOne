@@ -358,6 +358,7 @@ class Thor(Character):
         self.spirit = float('inf')  # Thor has unlimited power
         
 # Faizan Ahmed - 11:47am - 2/23/24 
+# Huukha Le - 4:50 PM - 2/25/24
 
 class Party:
     def __int__(self):
