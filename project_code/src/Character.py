@@ -19,6 +19,16 @@ class Character:
          """
         self.name = self._generate_name() if name is None else name
         self.strength: Strength = Strength(self)
+        self.dexterity: Dexterity = Dexterity(self)
+        self.constitution: Constitution = Constitution(self)
+        self.vitality: Vitality = Vitality(self)
+        self.endurance: Endurance = Endurance(self)
+        self.intelligence: Intelligence = Intelligence(self)
+        self.wisdom: Wisdom = Wisdom(self)
+        self.knowledge: Knowledge = Knowledge(self)
+        self.willpower: Willpower = Willpower(self)
+        self.spirit: Spirit = Spirit(self)
+        self.capacity: Capacity = Capacity(self)
         # etc
         # self.intelligence: Intelligence = Intelligence(self)
 
