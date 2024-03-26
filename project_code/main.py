@@ -201,7 +201,7 @@ class Game:
         else:
             return False
 
- def __init__(self):
+    def __init__(self):
         self.party = Party()
         self.opponents = []  # Fill this with Giant instances
 
