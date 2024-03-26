@@ -96,29 +96,49 @@ class Event:
 
 
 
+import random
 class Character:
+    def __int__(self, name):
+        self.name = name
+        self.strength = name
+        self.strength = random.randint(1,10)
+        self.dexterity = random.randint(1, 10)
+        self.constitution = random.randint(1, 10)
+        self.vitality = random.randint(1, 10)
+        self.endurance = random.randint(1, 10)
+        self.intelligence = random.randint(1, 10)
+        self.wisdom = random.randint(1, 10)
+        self.knowledge = random.randint(1, 10)
+        self.willpower = random.randint(1, 10)
+        self.spirit = random.randint(1, 10)
 
-    def __init__(self, name: str = None):
-        """
-        Core Stats: Everyone has these ad some text
-        - Strength: How much you can lift. How strong you are. How hard you punch, etc.
-        - Dexterity: How quick your limbs can perform intricate tasks. How adept you are at avoiding blows you anticipate. Impacts speed.
-        - Constitution: The bodies natural armor. Characters may have unique positive or negative constitutions that provide additional capabilities
-        - vitality: A measure of how lively you feel. How many Hit Points you have. An indirect measure of age.
-        - Endurance: How fast you recover from injuries. How quickly you recover from fatigue.
-        - Intelligence: How smart you are. How quickly you can connect the dots to solve problems. How fast you can think.
-        - Wisdom: How effectively you can make choices under pressure. Generally low in younger people.
-        - Knowledge: How much you know? This is a raw score for all knowledge. Characters may have specific areas of expertise with a bonus or deficit in some areas.
-        - Willpower: How quickly or effectively the character can overcome natural urges. How susceptible they are to mind control.
-        - Spirit: Catchall for ability to perform otherworldly acts. High spirit is rare. Different skills have different resource pools they might use like mana, stamina, etc. These are unaffected by spirit. Instead spirit is a measure of how hard it is to learn new otherworldly skills and/or master general skills.
-         """
-        self.name = self._generate_name() if name is None else name
-        self.strength: Strength = Strength(self)
-        # etc
-        # self.intelligence: Intelligence = Intelligence(self)
+    def __str__(self):
+        return f"{self.name}: Str({self.strength}), Dex({self.dexterity}), Con({self.constitution}), Vit({self.vitality}), End({self.endurance}), Int({self.intelligence}), Wis({self.wisdom}), Know({self.knowledge}), Will({self.willpower}), Spir({self.spirit})"
 
-    def _generate_name(self):
-        return "Bob"
+    def action(self):
+        # Placeholder for character action
+        print(f"{self.name} performs an action.")
+
+# Define character classes with special abilities
+class Kratos(Character):
+    def __init__(self):
+        super().__init__("Kratos")
+        self.strength += 5  # Kratos has great strength
+
+class Loki(Character):
+    def __init__(self):
+        super().__init__("Loki")
+        self.dexterity += 5  # Loki is a shape shifter
+
+class Odin(Character):
+    def __init__(self):
+        super().__init__("Odin")
+        self.willpower += 5  # Odin has psychological manipulation abilities
+
+class Thor(Character):
+    def __init__(self):
+        super().__init__("Thor")
+        self.spirit = float('inf')  # Thor has unlimited power
 
 
 class Game:
@@ -399,50 +419,60 @@ class Party:
 
 from party import Party
 from characters import Kratos, Loki, Odin, Thor
-from events import Event
+import random
 
 class Game:
     def __init__(self):
         self.party = Party()
         self.events = []
-        
-    def add_starting_characters(self):
-        """Add starting chracters to the party."""
-        kratos = Kratos()
-        loki = Loki()
-        odin = Odin()
-        thor = Thor()
+        self.opponents = [WorldSerpent(), Fenrir(), Surtur(), Hel()]
 
-        self.party.add_member(kratos)
-        self.party.add_member(loki)
-        self.party.add_member(odin)
-        self.party.add_member(thor)
+    def add_party_member(self, character):
+        """Add a character to the party."""
+        self.party.add_member(character)
 
-    def generate_events(self):
-        """Generate random events."""
-        for _ in range(5): # 5 events
-            event = Event()
-            self.events.append(event)
-            
+    def remove_party_member(self, character):
+        """Remove a character from the party."""
+        self.party.remove_member(character)
+
     def start_game(self):
         """Start the game loop."""
-        self.add_starting_characters()
-        print("Welcome to the game!")
-        self.party.list_members()
+        print("Welcome to Ragnarok!")
 
-        # Game loop
-        for event in self.events:
-            print("\n--- New Event ---")
-            event.execute(self.party.members[0]) # For now, let's use the firsst party member
-            
-# Start the game
-if __name__ == "__main__":
-    game = Game()
-    game.start_game()
+        # Let the player choose gods characters to play with
+        print("Choose which gods characters to play with:")
+        print("1. Kratos\n2. Loki\n3. Odin\n4. Thor")
+        choices = input("Enter the numbers of the characters (e.g., '1 3' for Kratos and Odin): ").split()
+
+        # Add selected gods characters to the party
+        for choice in choices:
+            if choice == '1':
+                self.add_party_member(Kratos())
+            elif choice == '2':
+                self.add_party_member(Loki())
+            elif choice == '3':
+                self.add_party_member(Odin())
+            elif choice == '4':
+                self.add_party_member(Thor())
+            else:
+                print("Invalid choice!")
+
+        # Display party composition
+        print("Your party:")
+        for members in self.party.members:
+            print(members.name)
+
+        # Battle against all giants
+        print("Prepare to face the giants in the final battle of Ragnarok!")
+        for opponent in self.opponents:
+            print(f"You are facing {opponent.name}: {opponent.ability()}")
+
+# Example usage:
+game = Game()
+game.start_game()
 
 # in this game class above, we import the 'Party class' and the character classes (kratos, loki, odin, and thor)
 # Movng on in Game class, we initialize a 'Party' instance to manage the player's party
-# Also we made 'add_starting_characters' method that adds the starting characters to the party.
 # the 'start_game' method starts the game loop and  right now displaying welcome message
 # lastly, at the bottom we deamand to start the game by calling the 'start_game' method.
 
@@ -451,7 +481,7 @@ if __name__ == "__main__":
     class Event:
         def __int__(self):
             self.description = "A random event occurs."
-            self.description_message = "You succeeded!"
+            self.success = "You succeeded!"
             self.failure_message = "You failed! "
 
         def execute(self, character):
