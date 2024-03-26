@@ -34,4 +34,54 @@ class Strength(Statistic):
         super().__init__(value)
         self.description = "Strength is a measure of physical power."
 
+class Dexterity(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Dexterity measures the speed and agility of a character."
+
+class Constitution(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Constitution represents the body's natural armor and resilience."
+
+class Vitality(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Vitality is an indirect measure of age and represents a character's hit points."
+
+class Endurance(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Endurance determines how quickly a character recovers from injuries and fatigue."
+
+class Intelligence(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Intelligence measures a character's ability to solve problems and think quickly."
+
+class Wisdom(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Wisdom affects a character's ability to make effective choices under pressure."
+
+class Knowledge(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Knowledge represents a character's overall knowledge, with potential bonuses or deficits in specific areas."
+
+class Willpower(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Willpower measures a character's ability to overcome natural urges and resist mind control."
+
+class Spirit(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Spirit is a catchall for the ability to perform otherworldly acts, with different skills using different resource pools."
+
+class Capacity(Statistic):
+    def __init__(self, value):
+        super().__init__(value)
+        self.description = "Capacity represents specific abilities or pools of resources like mana, stamina, or HP."
+
 # and so on for the other statistics
