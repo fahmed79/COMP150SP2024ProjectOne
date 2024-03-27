@@ -162,7 +162,7 @@ class Game:
     def __init__(self, parser):
         self.parser = parser
         self.party = Party()
-        self.opponents = []  # Fill this with Giant instances
+        self.opponents = [ Giant(), Serpent(), Fenrir(), Hell()]  # Fill this with Giant instances
         self.continue_playing = True
 
     def start_game(self):
@@ -187,8 +187,29 @@ class Game:
         self.party.list_members()
 
         print("Prepare to face the giants in the final battle of Ragnarok!")
-        for opponent in self.opponents:
-            print(f"You are facing {opponent.name}: {opponent.ability()}")
+         # Select a random opponent
+        random_opponent = random.choice(self.opponents)
+        print(f"You are facing {random_opponent.name}: {random_opponent.ability()}")
+
+        # Start the battle
+        winner = self.battle(random_opponent)
+
+        # Display the result
+        if winner == "Player":
+            print("Congratulations! You defeated the opponent.")
+        else:
+            print(f"Sorry, the opponent {random_opponent.name} won.")
+
+    def battle(self, opponent):
+        player_strength = sum(character.strength for character in self.party.members)
+        opponent_strength = opponent.strength
+
+        if player_strength > opponent_strength:
+            return "Player"
+        elif player_strength < opponent_strength:
+            return "Opponent"
+        else:
+            return "Draw"
 
     def add_party_member(self, character):
         self.party.add_member(character)
@@ -197,25 +218,66 @@ class Game:
 class Kratos(Character):
     def __init__(self):
         super().__init__("Kratos")
-        self.strength += 5  # Kratos has great strength
+        self.strength += 50  # Kratos has great strength
 
 
 class Loki(Character):
     def __init__(self):
         super().__init__("Loki")
-        self.dexterity += 5  # Loki is a shape shifter
+        self.dexterity += 60  # Loki is a shape shifter
 
 
 class Odin(Character):
     def __init__(self):
         super().__init__("Odin")
-        self.willpower += 5  # Odin has psychological manipulation abilities
+        self.willpower += 50  # Odin has psychological manipulation abilities
 
 
 class Thor(Character):
     def __init__(self):
         super().__init__("Thor")
         self.spirit = float('inf')  # Thor has unlimited power
+
+class Giant(Character):
+    def __init__(self, name="Giant"):
+        super().__init__(name)
+        self.strength = random.randint(10, 20)
+        self.dexterity = random.randint(5, 10)
+        self.constitution = random.randint(15, 25)
+
+    def ability(self):
+        return "Smashes enemies with brute force."
+
+class Serpent(Character):
+    def __init__(self, name="Serpent"):
+        super().__init__(name)
+        self.strength = random.randint(15, 25)
+        self.dexterity = random.randint(10, 15)
+        self.constitution = random.randint(20, 30)
+        # Define other attributes as needed
+
+    def ability(self):
+        return "Breathes Poison and swallow the enemy."
+
+class Fenrir(Character):
+    def __init__(self, name="Fenrir"):
+        super().__init__(name)
+        self.strength = random.randint(20, 35)
+        self.dexterity = random.randint(20, 25)
+        self.constitution = random.randint(30, 40)
+
+    def ability(self):
+        return "Immense Agressive Attacks on enimies."
+
+class Hell(Character):
+    def __init__(self, name="Hell"):
+        super().__init__(name)
+        self.strength = random.randint(15, 25)
+        self.dexterity = random.randint(10, 25)
+        self.constitution = random.randint(40, 50)
+
+    def ability(self):
+        return "Attacks with the army."
 
 
 class UserInputParser:
@@ -289,3 +351,4 @@ def start_game():
 
 if __name__ == '__main__':
     start_game()
+#-----------------------------------newupdate-Faizan-3/27/2024-----------
