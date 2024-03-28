@@ -351,6 +351,110 @@ def start_game():
 
 if __name__ == '__main__':
     start_game()
-#-----------------------------------newupdate-Faizan-3/28/2024 - 3:35--------------------------------------------------
+
+
+#tests
+
+import unittest
+
+class TestStatistic(unittest.TestCase):
+
+    def test_strength_increase(self):
+        strength = Strength()
+        strength.increase(10)
+        self.assertEqual(strength.value, 10)
+
+    def test_dexterity_decrease(self):
+        dexterity = Dexterity()
+        dexterity.decrease(5)
+        self.assertEqual(dexterity.value, -5)  # Dexterity cannot be negative, you might want to handle this case
+
+class TestEvent(unittest.TestCase):
+
+    def test_resolve_choice_pass(self):
+        parser = UserInputParser()
+        event = Event(parser)
+        party = Party()
+        skill = []
+        party.add_member(Character("Test", strength=20, dexterity=30))
+        chosen_one = party.members[0]
+        chosen_skill = skill(primary_attribute=Strength(), secondary_attribute=Dexterity())
+        
+        event.resolve_choice(party, chosen_one, chosen_skill)
+        self.assertEqual(event.status, EventStatus.PASS)
+
+    def test_resolve_choice_partial_pass(self):
+        parser = UserInputParser()
+        event = Event(parser)
+        party = Party()
+        skill = []
+
+        party.add_member(Character("Test", strength=30, dexterity=20))
+        chosen_one = party.members[0]
+        chosen_skill = skill(primary_attribute=Strength(), secondary_attribute=Dexterity())
+        
+        event.resolve_choice(party, chosen_one, chosen_skill)
+        self.assertEqual(event.status, EventStatus.PARTIAL_PASS)
+
+    def test_resolve_choice_fail(self):
+        parser = UserInputParser()
+        event = Event(parser)
+        party = Party()
+        skill = []
+        party.add_member(Character("Test", strength=10, dexterity=10))
+        chosen_one = party.members[0]
+        chosen_skill = skill(primary_attribute=Strength(), secondary_attribute=Dexterity())
+        
+        event.resolve_choice(party, chosen_one, chosen_skill)
+        self.assertEqual(event.status, EventStatus.FAIL)
+
+class TestParty(unittest.TestCase):
+
+    def test_add_member(self):
+        party = Party()
+        character = Character("Test")
+        party.add_member(character)
+        self.assertIn(character, party.members)
+
+    def test_remove_member(self):
+        party = Party()
+        character = Character("Test")
+        party.add_member(character)
+        party.remove_member(character)
+        self.assertNotIn(character, party.members)
+
+class TestGame(unittest.TestCase):
+
+    def test_battle_player_wins(self):
+        game = Game()
+        party = Party()
+        party.add_member(Character("Test", strength=20))
+        game.party = party
+        opponent = Giant()
+        result = game.battle(opponent)
+        self.assertEqual(result, "Player")
+
+    def test_battle_opponent_wins(self):
+        game = Game()
+        party = Party()
+        party.add_member(Character("Test", strength=10))
+        game.party = party
+        opponent = Giant()
+        result = game.battle(opponent)
+        self.assertEqual(result, "Opponent")
+
+    def test_battle_draw(self):
+        game = Game()
+        party = Party()
+        party.add_member(Character("Test", strength=15))
+        game.party = party
+        opponent = Giant(strength=15)
+        result = game.battle(opponent)
+        self.assertEqual(result, "Draw")
+
+if __name__ == '__main__':
+    unittest.main()
+
+#-----------------------------------newupdate-Faizan-3/28/2024 - 3:50--------------------------------------------------
 # This is the final edit. we have already submitted with the previous edit in Visual Studio Code application in the attachments of sakai Assignments, but this is the most recent editted version.
 # Please consider this as the most recent and final edit of the project.
