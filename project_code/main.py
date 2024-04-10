@@ -458,3 +458,6 @@ if __name__ == '__main__':
 #-----------------------------------newupdate-Faizan-3/28/2024 - 3:50--------------------------------------------------
 # This is the final edit. we have already submitted with the previous edit in Visual Studio Code application in the attachments of sakai Assignments, but this is the most recent editted version.
 # Please consider this as the most recent and final edit of the project.
+
+#PROJECT PART 2 - Option 2) 2) Same project. Students will implement a dynamic front-end project using the python backend they've already created.
+#I am using HTML Language to create the beckend and for the front end I am using Visual Studio Code application.
