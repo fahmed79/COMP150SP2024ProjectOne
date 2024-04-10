@@ -461,3 +461,70 @@ if __name__ == '__main__':
 
 #PROJECT PART 2 - Option 2) 2) Same project. Students will implement a dynamic front-end project using the python backend they've already created.
 #I am using HTML Language to create the beckend and for the front end I am using Visual Studio Code application.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WELCOME TO THE BATTLE OF RAGNAROK!</title> <!-- Updated title -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black; /* Updated background color */
+            color: white; /* Updated text color */
+        }
+
+        .game-box {
+            border: 2px solid #333;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-option {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-option:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        <h1>WELCOME TO THE BATTLE OF RAGNAROK!</h1> <!-- Updated heading -->
+        <button class="menu-option" onclick="startNewGame()">Start New Game</button>
+        <button class="menu-option" onclick="loadGame()">Load</button>
+        <!-- Add more menu options here -->
+    </div>
+
+    <script>
+        function startNewGame() {
+            // Send request to backend to start a new game
+            alert("Starting a new game...");
+            // Example: You can use AJAX to communicate with Python backend
+        }
+
+        function loadGame() {
+            // Send request to backend to load a saved game
+            alert("Loading game...");
+            // Example: You can use AJAX to communicate with Python backend
+        }
+        // Add more functions to handle other menu options
+    </script>
+</body>
+</html>
