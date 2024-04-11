@@ -467,7 +467,7 @@ if __name__ == '__main__':
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WELCOME TO THE BATTLE OF RAGNAROK!</title> <!-- Updated title -->
+    <title>Welcome to the Battle of Ragnarök</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -476,14 +476,15 @@ if __name__ == '__main__':
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: black; /* Updated background color */
-            color: white; /* Updated text color */
+            background-color: black; /* Change background color to black */
+            color: white; /* Change text color to white */
         }
 
         .game-box {
             border: 2px solid #333;
             padding: 20px;
             border-radius: 10px;
+            background-color: #f0f0f0;
             text-align: center;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -502,29 +503,48 @@ if __name__ == '__main__':
         .menu-option:hover {
             background-color: #45a049;
         }
+
+        .character-option {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .character-option:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
-    <div class="game-box">
-        <h1>WELCOME TO THE BATTLE OF RAGNAROK!</h1> <!-- Updated heading -->
+    <div class="game-box" id="welcome-box">
+        <h1>Welcome to the Battle of Ragnarök</h1>
         <button class="menu-option" onclick="startNewGame()">Start New Game</button>
-        <button class="menu-option" onclick="loadGame()">Load</button>
-        <!-- Add more menu options here -->
+    </div>
+
+    <div class="game-box" id="character-selection-box" style="display: none;">
+        <h1>Please Select Your Character</h1>
+        <button class="character-option" onclick="selectCharacter('Kratos')">Kratos</button>
+        <button class="character-option" onclick="selectCharacter('Loki')">Loki</button>
+        <button class="character-option" onclick="selectCharacter('Odin')">Odin</button>
+        <button class="character-option" onclick="selectCharacter('Thor')">Thor</button>
     </div>
 
     <script>
         function startNewGame() {
-            // Send request to backend to start a new game
-            alert("Starting a new game...");
-            // Example: You can use AJAX to communicate with Python backend
+            document.getElementById("welcome-box").style.display = "none";
+            document.getElementById("character-selection-box").style.display = "block";
         }
 
-        function loadGame() {
-            // Send request to backend to load a saved game
-            alert("Loading game...");
-            // Example: You can use AJAX to communicate with Python backend
+        function selectCharacter(character) {
+            alert("You selected " + character);
+            // Add functionality to proceed with the selected character
         }
-        // Add more functions to handle other menu options
     </script>
 </body>
 </html>
+
