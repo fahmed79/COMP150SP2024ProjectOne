@@ -461,6 +461,7 @@ if __name__ == '__main__':
 
 #PROJECT PART 2 - Option 2) 2) Same project. Students will implement a dynamic front-end project using the python backend they've already created.
 #I am using HTML Language to create the beckend and for the front end I am using Visual Studio Code application.
+#----------------------------------------------------------------------------------------------------------------------
 
 <!DOCTYPE html>
 <html lang="en">
