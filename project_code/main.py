@@ -482,10 +482,9 @@ if __name__ == '__main__':
         }
 
         .game-box {
-            border: 2px solid #333;
             padding: 20px;
             border-radius: 10px;
-            background-color: #f0f0f0;
+            background-color: #000000;
             text-align: center;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -505,19 +504,8 @@ if __name__ == '__main__':
             background-color: #45a049;
         }
 
-        .character-option {
-            margin: 10px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .character-option:hover {
-            background-color: #45a049;
+        .battle-scene {
+            display: none;
         }
     </style>
 </head>
@@ -529,21 +517,47 @@ if __name__ == '__main__':
 
     <div class="game-box" id="character-selection-box" style="display: none;">
         <h1>Please Select Your Character</h1>
-        <button class="character-option" onclick="selectCharacter('Kratos')">Kratos</button>
-        <button class="character-option" onclick="selectCharacter('Loki')">Loki</button>
-        <button class="character-option" onclick="selectCharacter('Odin')">Odin</button>
-        <button class="character-option" onclick="selectCharacter('Thor')">Thor</button>
+        <button class="menu-option" onclick="selectCharacter('Kratos')">Kratos</button>
+        <button class="menu-option" onclick="selectCharacter('Loki')">Loki</button>
+        <button class="menu-option" onclick="selectCharacter('Odin')">Odin</button>
+        <button class="menu-option" onclick="selectCharacter('Thor')">Thor</button>
+    </div>
+
+    <div class="game-box battle-scene" id="battle-scene">
+        <h1>Battle Scene</h1>
+        <div id="opponent"></div>
+        <button class="menu-option" onclick="attack()">Attack</button>
+        <!-- Add more battle actions here -->
     </div>
 
     <script>
+        let selectedCharacter;
+        let opponent;
+
         function startNewGame() {
             document.getElementById("welcome-box").style.display = "none";
             document.getElementById("character-selection-box").style.display = "block";
         }
 
         function selectCharacter(character) {
-            alert("You selected " + character);
-            // Add functionality to proceed with the selected character
+            selectedCharacter = character;
+            document.getElementById("character-selection-box").style.display = "none";
+            document.getElementById("battle-scene").style.display = "block";
+            displayOpponent();
+        }
+
+        function displayOpponent() {
+            // For simplicity, let's randomly choose an opponent
+            const opponents = ['Giant Snake', 'Frost Giant', 'Fire Demon'];
+            opponent = opponents[Math.floor(Math.random() * opponents.length)];
+            document.getElementById("opponent").innerText = `Opponent: ${opponent}`;
+        }
+
+        function attack() {
+            // Implement attack logic here
+            alert(`You attacked ${opponent}!`);
+            // For simplicity, let's assume the opponent retaliates immediately
+            alert(`${opponent} retaliates!`);
         }
     </script>
 </body>
