@@ -9,19 +9,18 @@
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: left;
             height: 100vh;
             margin: 0;
             background-image: url('static/Ragnarok-illustration.jpg');
-            color: white; /* Change text color to white */
+            background-size: cover;
+            color: rgb(250, 2, 2); /* Change text color to white */
         }
 
         .game-box {
             padding: 20px;
             border-radius: 10px;
-            background-color: #000500;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .menu-option {
@@ -41,6 +40,41 @@
 
         .battle-scene {
             display: none;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .health-bar {
+            width: 200px;
+            height: 20px;
+            background-color: red;
+            margin: 10px auto;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .health-bar-inner {
+            width: 100%;
+            height: 100%;
+            background-color: green;
+        }
+
+        .character-image {
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+        }
+
+        .player-container,
+        .opponent-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .opponent-container {
+            transform: scaleX(-1); /* Flip the opponent image horizontally */
         }
     </style>
 </head>
@@ -52,15 +86,25 @@
 
     <div class="game-box" id="character-selection-box" style="display: none;">
         <h1>Please Select Your Character</h1>
-        <button class="menu-option" onclick="selectCharacter('Kratos')">Kratos</button>
-        <button class="menu-option" onclick="selectCharacter('Loki')">Loki</button>
-        <button class="menu-option" onclick="selectCharacter('Odin')">Odin</button>
-        <button class="menu-option" onclick="selectCharacter('Thor')">Thor</button>
+        <button class="menu-option" onclick="selectCharacter('Kratos')"><img src="static/KRATOS.jpg" alt="Kratos" class="character-image"></button>
+        <button class="menu-option" onclick="selectCharacter('Loki')"><img src="static/LOKI.jpg" alt="Loki" class="character-image"></button>
+        <button class="menu-option" onclick="selectCharacter('Odin')"><img src="static/ODIN.png" alt="Odin" class="character-image"></button>
+        <button class="menu-option" onclick="selectCharacter('Thor')"><img src="static/THOR.png" alt="Thor" class="character-image"></button>
     </div>
 
     <div class="game-box battle-scene" id="battle-scene">
-        <h1>Battle Scene</h1>
-        <div id="opponent"></div>
+        <div class="player-container">
+            <img src="static/KRATOS.jpg" alt="Player Character" class="character-image">
+            <div id="player-health-bar" class="health-bar">
+                <div id="player-health-bar-inner" class="health-bar-inner"></div>
+            </div>
+        </div>
+        <div class="opponent-container">
+            <img src="static/SERPENT.png" alt="Opponent" class="character-image">
+            <div id="opponent-health-bar" class="health-bar">
+                <div id="opponent-health-bar-inner" class="health-bar-inner"></div>
+            </div>
+        </div>
         <button class="menu-option" onclick="attack()">Attack</button>
         <!-- Add more battle actions here -->
     </div>
@@ -68,6 +112,8 @@
     <script>
         let selectedCharacter;
         let opponent;
+        let playerHealth = 100;
+        let opponentHealth = 100;
 
         function startNewGame() {
             document.getElementById("welcome-box").style.display = "none";
@@ -77,7 +123,7 @@
         function selectCharacter(character) {
             selectedCharacter = character;
             document.getElementById("character-selection-box").style.display = "none";
-            document.getElementById("battle-scene").style.display = "block";
+            document.getElementById("battle-scene").style.display = "flex";
             displayOpponent();
         }
 
@@ -86,13 +132,39 @@
             const opponents = ['Giant Snake', 'Frost Giant', 'Fire Demon'];
             opponent = opponents[Math.floor(Math.random() * opponents.length)];
             document.getElementById("opponent").innerText = `Opponent: ${opponent}`;
+            updateHealthBars();
         }
 
         function attack() {
             // Implement attack logic here
-            alert(`You attacked ${opponent}!`);
+            const playerDamage = Math.floor(Math.random() * 10) + 1; // Random damage between 1 and 10
+            const opponentDamage = Math.floor(Math.random() * 10) + 1; // Random damage between 1 and 10
+            playerHealth -= opponentDamage;
+            opponentHealth -= playerDamage;
+            updateHealthBars();
             // For simplicity, let's assume the opponent retaliates immediately
-            alert(`${opponent} retaliates!`);
+            alert(`${opponent} attacked you for ${opponentDamage} damage!`);
+            if (playerHealth <= 0) {
+                alert("You were defeated!");
+                resetGame();
+            } else if (opponentHealth <= 0) {
+                alert("You defeated the opponent!");
+                resetGame();
+            }
+        }
+
+        function updateHealthBars() {
+            document.getElementById("player-health-bar-inner").style.width = playerHealth + "%";
+            document.getElementById("opponent-health-bar-inner").style.width = opponentHealth + "%";
+        }
+
+        function resetGame() {
+            playerHealth = 100;
+            opponentHealth = 100;
+            document.getElementById("player-health-bar-inner").style.width = "100%";
+            document.getElementById("opponent-health-bar-inner").style.width = "100%";
+            document.getElementById("battle-scene").style.display = "none";
+            document.getElementById("welcome-box").style.display = "block";
         }
     </script>
 </body>
