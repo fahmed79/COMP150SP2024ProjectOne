@@ -86,15 +86,15 @@
 
     <div class="game-box" id="character-selection-box" style="display: none;">
         <h1>Please Select Your Character</h1>
-        <button class="menu-option" onclick="selectCharacter('Kratos')"><img src="static/KRATOS.jpg" alt="Kratos" class="character-image"></button>
-        <button class="menu-option" onclick="selectCharacter('Loki')"><img src="static/LOKI.jpg" alt="Loki" class="character-image"></button>
-        <button class="menu-option" onclick="selectCharacter('Odin')"><img src="static/ODIN.png" alt="Odin" class="character-image"></button>
-        <button class="menu-option" onclick="selectCharacter('Thor')"><img src="static/THOR.png" alt="Thor" class="character-image"></button>
+        <button class="menu-option" onclick="selectCharacter('Kratos', 'static/KRATOS.jpg')">Kratos</button>
+        <button class="menu-option" onclick="selectCharacter('Loki', 'static/LOKI.jpg')">Loki</button>
+        <button class="menu-option" onclick="selectCharacter('Odin', 'static/ODIN.png')">Odin</button>
+        <button class="menu-option" onclick="selectCharacter('Thor', 'static/THOR.png')">Thor</button>
     </div>
 
     <div class="game-box battle-scene" id="battle-scene">
         <div class="player-container">
-            <img src="static/KRATOS.jpg" alt="Player Character" class="character-image">
+            <img id="player-image" src="" alt="Player Character" class="character-image">
             <div id="player-health-bar" class="health-bar">
                 <div id="player-health-bar-inner" class="health-bar-inner"></div>
             </div>
@@ -120,10 +120,11 @@
             document.getElementById("character-selection-box").style.display = "block";
         }
 
-        function selectCharacter(character) {
+        function selectCharacter(character, imagePath) {
             selectedCharacter = character;
             document.getElementById("character-selection-box").style.display = "none";
             document.getElementById("battle-scene").style.display = "flex";
+            document.getElementById("player-image").src = imagePath;
             displayOpponent();
         }
 
