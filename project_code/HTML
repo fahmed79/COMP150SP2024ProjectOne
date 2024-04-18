@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: left;
+            align-items: center;
             height: 100vh;
             margin: 0;
             background-image: url('static/Ragnarok-illustration.jpg');
@@ -76,6 +76,30 @@
         .opponent-container {
             transform: scaleX(-1); /* Flip the opponent image horizontally */
         }
+
+        .end-screen {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        #end-title {
+            margin-bottom: 20px;
+        }
+
+        #end-message {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -86,10 +110,20 @@
 
     <div class="game-box" id="character-selection-box" style="display: none;">
         <h1>Please Select Your Character</h1>
-        <button class="menu-option" onclick="selectCharacter('Kratos', 'static/KRATOS.jpg')">Kratos</button>
-        <button class="menu-option" onclick="selectCharacter('Loki', 'static/LOKI.jpg')">Loki</button>
-        <button class="menu-option" onclick="selectCharacter('Odin', 'static/ODIN.png')">Odin</button>
-        <button class="menu-option" onclick="selectCharacter('Thor', 'static/THOR.png')">Thor</button>
+        <div>
+            <button class="menu-option" onclick="selectCharacter('Kratos', 'static/KRATOS.jpg')">
+                <img src="static/KRATOS.jpg" alt="Kratos" class="character-image"><br>Kratos
+            </button>
+            <button class="menu-option" onclick="selectCharacter('Loki', 'static/LOKI.jpg')">
+                <img src="static/LOKI.jpg" alt="Loki" class="character-image"><br>Loki
+            </button>
+            <button class="menu-option" onclick="selectCharacter('Odin', 'static/ODIN.png')">
+                <img src="static/ODIN.png" alt="Odin" class="character-image"><br>Odin
+            </button>
+            <button class="menu-option" onclick="selectCharacter('Thor', 'static/THOR.png')">
+                <img src="static/THOR.png" alt="Thor" class="character-image"><br>Thor
+            </button>
+        </div>
     </div>
 
     <div class="game-box battle-scene" id="battle-scene">
@@ -107,6 +141,13 @@
         </div>
         <button class="menu-option" onclick="attack()">Attack</button>
         <!-- Add more battle actions here -->
+    </div>
+
+    <!-- End Screen -->
+    <div class="end-screen" id="end-screen">
+        <h1 id="end-title"></h1>
+        <p id="end-message"></p>
+        <button class="menu-option" onclick="resetGame()">Play Again</button>
     </div>
 
     <script>
@@ -146,11 +187,9 @@
             // For simplicity, let's assume the opponent retaliates immediately
             alert(`${opponent} attacked you for ${opponentDamage} damage!`);
             if (playerHealth <= 0) {
-                alert("You were defeated!");
-                resetGame();
+                endGame(false); // Player loses
             } else if (opponentHealth <= 0) {
-                alert("You defeated the opponent!");
-                resetGame();
+                endGame(true); // Player wins
             }
         }
 
@@ -166,6 +205,19 @@
             document.getElementById("opponent-health-bar-inner").style.width = "100%";
             document.getElementById("battle-scene").style.display = "none";
             document.getElementById("welcome-box").style.display = "block";
+            document.getElementById("end-screen").style.display = "none"; // Hide end screen
+        }
+
+        function endGame(isVictory) {
+            if (isVictory) {
+                document.getElementById("end-title").innerText = "YOU HAVE WON THE BATTLE!";
+                document.getElementById("end-message").innerText = "";
+            } else {
+                document.getElementById("end-title").innerText = "You Are Defeated!";
+                document.getElementById("end-message").innerText = "Try Again";
+            }
+            document.getElementById("battle-scene").style.display = "none";
+            document.getElementById("end-screen").style.display = "flex"; // Show end screen
         }
     </script>
 </body>
