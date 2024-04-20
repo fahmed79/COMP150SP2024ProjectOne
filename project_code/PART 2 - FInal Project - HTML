@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the Battle of Ragnarök</title>
+    <title>WELCOME TO RAGNAROK </title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Algerian, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -14,7 +14,7 @@
             margin: 0;
             background-image: url('static/Ragnarok-illustration.jpg');
             background-size: cover;
-            color: rgb(250, 2, 2); /* Change text color to white */
+            color: rgb(236, 9, 9); /* Change text color to white */
         }
 
         .game-box {
@@ -26,7 +26,7 @@
         .menu-option {
             margin: 10px;
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #040604;
             color: white;
             border: none;
             border-radius: 5px;
@@ -35,7 +35,7 @@
         }
 
         .menu-option:hover {
-            background-color: #45a049;
+            background-color: #db0707;
         }
 
         .battle-scene {
@@ -46,10 +46,10 @@
         }
 
         .health-bar {
-            width: 200px;
-            height: 20px;
+            width: 300px; /* Increased width for health bar */
+            height: 30px; /* Increased height for health bar */
             background-color: red;
-            margin: 10px auto;
+            margin: 20px auto; /* Increased margin for health bar */
             border-radius: 5px;
             overflow: hidden;
         }
@@ -61,8 +61,8 @@
         }
 
         .character-image {
-            width: 100px;
-            height: 100px;
+            width: 150px; /* Increased width for character image */
+            height: 150px; /* Increased height for character image */
             margin-top: 20px;
         }
 
@@ -103,10 +103,13 @@
     </style>
 </head>
 <body>
+ 
     <div class="game-box" id="welcome-box">
-        <h1>Welcome to the Battle of Ragnarök</h1>
+        <h1>WELCOME TO RANAROK</h1>
         <button class="menu-option" onclick="startNewGame()">Start New Game</button>
+        
     </div>
+
 
     <div class="game-box" id="character-selection-box" style="display: none;">
         <h1>Please Select Your Character</h1>
@@ -140,10 +143,9 @@
             </div>
         </div>
         <button class="menu-option" onclick="attack()">Attack</button>
-        <!-- Add more battle actions here -->
+        <button class="menu-option" onclick="specialAttack()">Special Attack</button> <!-- New button for special attack -->
     </div>
 
-    <!-- End Screen -->
     <div class="end-screen" id="end-screen">
         <h1 id="end-title"></h1>
         <p id="end-message"></p>
@@ -151,16 +153,26 @@
     </div>
 
     <script>
+        // Define audio elements
+        const swordSlashSound = new Audio('static/SwordSlash.mp3');
+        const winSound = new Audio('static/Win.mp3');
+        const loseSound = new Audio('static/Lose.mp3');
+        const startGameSound = new Audio('static/GOW.mp3'); // New start game sound
+        
+        // Define game variables
         let selectedCharacter;
         let opponent;
         let playerHealth = 100;
         let opponentHealth = 100;
 
+        // Function to start a new game
         function startNewGame() {
+            startGameSound.play(); // Play the start game sound
             document.getElementById("welcome-box").style.display = "none";
             document.getElementById("character-selection-box").style.display = "block";
         }
 
+        // Function to select a character
         function selectCharacter(character, imagePath) {
             selectedCharacter = character;
             document.getElementById("character-selection-box").style.display = "none";
@@ -169,35 +181,53 @@
             displayOpponent();
         }
 
+        // Function to display opponent
         function displayOpponent() {
-            // For simplicity, let's randomly choose an opponent
             const opponents = ['Giant Snake', 'Frost Giant', 'Fire Demon'];
             opponent = opponents[Math.floor(Math.random() * opponents.length)];
             document.getElementById("opponent").innerText = `Opponent: ${opponent}`;
             updateHealthBars();
         }
 
+        // Function to handle regular attack
         function attack() {
-            // Implement attack logic here
-            const playerDamage = Math.floor(Math.random() * 10) + 1; // Random damage between 1 and 10
-            const opponentDamage = Math.floor(Math.random() * 10) + 1; // Random damage between 1 and 10
+            swordSlashSound.play();
+            const playerDamage = Math.floor(Math.random() * 10) + 1;
+            const opponentDamage = Math.floor(Math.random() * 10) + 1;
             playerHealth -= opponentDamage;
             opponentHealth -= playerDamage;
             updateHealthBars();
-            // For simplicity, let's assume the opponent retaliates immediately
             alert(`${opponent} attacked you for ${opponentDamage} damage!`);
             if (playerHealth <= 0) {
-                endGame(false); // Player loses
+                endGame(false);
             } else if (opponentHealth <= 0) {
-                endGame(true); // Player wins
+                endGame(true);
             }
         }
 
+        // Function to handle special attack
+        function specialAttack() {
+            const playerSpecialDamage = Math.floor(Math.random() * 20) + 10;
+            const opponentDamage = Math.floor(Math.random() * 10) + 1;
+            playerHealth -= opponentDamage;
+            opponentHealth -= playerSpecialDamage;
+            updateHealthBars();
+            loseSound.play(); // Play losing sound
+            alert(`${selectedCharacter} used Special Attack! ${opponent} takes ${playerSpecialDamage} damage!`);
+            if (playerHealth <= 0) {
+                endGame(false);
+            } else if (opponentHealth <= 0) {
+                endGame(true);
+            }
+        }
+
+        // Function to update health bars
         function updateHealthBars() {
             document.getElementById("player-health-bar-inner").style.width = playerHealth + "%";
             document.getElementById("opponent-health-bar-inner").style.width = opponentHealth + "%";
         }
 
+        // Function to reset the game
         function resetGame() {
             playerHealth = 100;
             opponentHealth = 100;
@@ -205,19 +235,22 @@
             document.getElementById("opponent-health-bar-inner").style.width = "100%";
             document.getElementById("battle-scene").style.display = "none";
             document.getElementById("welcome-box").style.display = "block";
-            document.getElementById("end-screen").style.display = "none"; // Hide end screen
+            document.getElementById("end-screen").style.display = "none";
         }
 
+        // Function to handle end of the game
         function endGame(isVictory) {
             if (isVictory) {
+                winSound.play();
                 document.getElementById("end-title").innerText = "YOU HAVE WON THE BATTLE!";
                 document.getElementById("end-message").innerText = "";
             } else {
+                loseSound.play(); // Play losing sound
                 document.getElementById("end-title").innerText = "You Are Defeated!";
                 document.getElementById("end-message").innerText = "Try Again";
             }
             document.getElementById("battle-scene").style.display = "none";
-            document.getElementById("end-screen").style.display = "flex"; // Show end screen
+            document.getElementById("end-screen").style.display = "flex";
         }
     </script>
 </body>
