@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WELCOME TO RAGNAROK </title>
+    <title>Welcome to the Battle of Ragnarök</title>
     <style>
         body {
-            font-family: Algerian, sans-serif;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -14,7 +14,7 @@
             margin: 0;
             background-image: url('static/Ragnarok-illustration.jpg');
             background-size: cover;
-            color: rgb(236, 9, 9); /* Change text color to white */
+            color: rgb(250, 2, 2); /* Change text color to white */
         }
 
         .game-box {
@@ -26,7 +26,7 @@
         .menu-option {
             margin: 10px;
             padding: 10px 20px;
-            background-color: #040604;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
@@ -35,7 +35,7 @@
         }
 
         .menu-option:hover {
-            background-color: #db0707;
+            background-color: #45a049;
         }
 
         .battle-scene {
@@ -46,10 +46,10 @@
         }
 
         .health-bar {
-            width: 300px; /* Increased width for health bar */
-            height: 30px; /* Increased height for health bar */
+            width: 200px;
+            height: 20px;
             background-color: red;
-            margin: 20px auto; /* Increased margin for health bar */
+            margin: 10px auto;
             border-radius: 5px;
             overflow: hidden;
         }
@@ -61,8 +61,8 @@
         }
 
         .character-image {
-            width: 150px; /* Increased width for character image */
-            height: 150px; /* Increased height for character image */
+            width: 100px;
+            height: 100px;
             margin-top: 20px;
         }
 
@@ -103,13 +103,10 @@
     </style>
 </head>
 <body>
- 
     <div class="game-box" id="welcome-box">
-        <h1>WELCOME TO RANAROK</h1>
+        <h1>Welcome to the Battle of Ragnarök</h1>
         <button class="menu-option" onclick="startNewGame()">Start New Game</button>
-        
     </div>
-
 
     <div class="game-box" id="character-selection-box" style="display: none;">
         <h1>Please Select Your Character</h1>
